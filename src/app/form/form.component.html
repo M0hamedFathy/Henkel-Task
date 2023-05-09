@@ -1,0 +1,118 @@
+<!-- Main container -->
+<div class="bg-gray-100 py-8 px-4">
+  <form
+    [formGroup]="form"
+    class="w-full max-w-lg mx-auto bg-white shadow-lg p-6 rounded-lg"
+  >
+    <!-- Form elements -->
+    <div class="space-y-4">
+      <!-- Form title -->
+      <h2 class="text-center text-2xl font-semibold mb-4">Sign Up</h2>
+      <!-- Title select field -->
+      <div>
+        <div class="flex items-center space-x-2">
+          <label for="title" class="w-24 font-medium">Title</label>
+          <select
+            id="title"
+            formControlName="title"
+            class="w-full border-slate-400 border-2 rounded-sm focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400"
+          >
+            <option value="">-- Select an option --</option>
+            <option *ngFor="let title of titles" [value]="title.name">
+              {{ title.name }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="form.get('title')?.invalid && form.get('title')?.touched"
+          class="ml-24 mt-1 text-sm text-red-600"
+        >
+          * Please select a valid option
+        </div>
+      </div>
+      <!-- First name input field -->
+      <div>
+        <div class="flex items-center space-x-2">
+          <label for="firstName" class="w-24 font-medium">First name</label>
+          <input
+            id="firstName"
+            formControlName="firstName"
+            class="w-full border-2 rounded-sm focus:border-indigo-400 focus:shadow-none focus:ring-1 focus:ring-indigo-400"
+            [ngClass]="{
+              'border-red-600':
+                form.get('firstName')?.invalid &&
+                form.get('firstName')?.touched,
+              'border-slate-400':
+                !form.get('firstName')?.touched || form.get('firstName')?.valid
+            }"
+            type="text"
+            placeholder="First name"
+          />
+        </div>
+        <!-- First name error message -->
+        <div
+          *ngIf="
+            form.get('firstName')?.invalid && form.get('firstName')?.touched
+          "
+          class="ml-24 mt-1 text-sm text-red-600"
+        >
+          * Required (min. 2 characters)
+        </div>
+      </div>
+      <!-- Last name input field -->
+      <div>
+        <div class="flex items-center space-x-2">
+          <label for="lastName" class="w-24 font-medium">Last name</label>
+          <input
+            id="lastName"
+            formControlName="lastName"
+            class="w-full border-slate-400 border-2 rounded-sm focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400"
+            type="text"
+            placeholder="Last name"
+            [ngClass]="{
+              'border-red-600':
+                form.get('lastName')?.invalid && form.get('lastName')?.touched,
+              'border-slate-400':
+                !form.get('lastName')?.touched || form.get('lastName')?.valid
+            }"
+          />
+        </div>
+        <!-- Last name error message -->
+        <div
+          *ngIf="form.get('lastName')?.invalid && form.get('lastName')?.touched"
+          class="ml-24 mt-1 text-sm text-red-600"
+        >
+          * Required (min. 2 characters)
+        </div>
+      </div>
+      <!-- Terms and conditions checkbox -->
+      <div class="flex items-center space-x-2">
+        <input
+          class="cursor-pointer"
+          id="terms"
+          formControlName="terms"
+          type="checkbox"
+        />
+        <label class="cursor-pointer" for="terms"
+          >I accept the terms &amp; conditions</label
+        >
+        <!-- Terms and conditions error message -->
+        <div
+          *ngIf="form.get('terms')?.invalid && form.get('terms')?.touched"
+          class="text-sm text-red-600"
+        >
+          * You must accept the terms
+        </div>
+      </div>
+      <!-- Submit button -->
+      <div class="flex justify-end">
+        <button
+          [disabled]="form.invalid"
+          class="bg-indigo-400 text-white py-1.5 px-3 rounded transition hover:bg-indigo-500 disabled:opacity-50 disabled:bg-indigo-400"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
